@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     CharacterController _characterController;
     CharacterMovement _input;
-    public float Speed = 1;
+    public float Speed = 1f;
 
     private Vector3 _lastVelocity;
 
@@ -25,21 +25,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         Move();
 
         var horizontalSpeed = _lastVelocity;
      
-        horizontalSpeed.y = 0;
+        //horizontalSpeed.y = 0;
 
         Debug.Log(horizontalSpeed.magnitude);
+       
 
-        _animator.SetFloat("speed", horizontalSpeed.magnitude*10);
+        _animator.SetFloat("speed", horizontalSpeed.magnitude);
+       
     }
 
     
 
     private void Move()
     {
+
         Vector3 direction = new Vector3(_input.Move.x, 0, _input.Move.y);
         //_characterController.SimpleMove(direction * Speed);
 
@@ -48,11 +52,7 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = _lastVelocity.y;
         velocity.z = direction.z * Speed;
 
-
-
         //velocity.y = GetGravity();
-
-       
 
         _characterController.Move(velocity * Time.deltaTime);
 
@@ -61,8 +61,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 target = transform.position + direction;
             transform.LookAt(target);
+            Speed = Speed + 0.03f;
+        }
+        else if (direction.magnitude == 0)
+        {
+            Speed = 0f;
         }
         _lastVelocity = velocity;
+     
+        
     }
 
     private float GetGravity()

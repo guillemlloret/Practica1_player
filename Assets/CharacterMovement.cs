@@ -9,10 +9,7 @@ public class CharacterMovement : MonoBehaviour
 
     public Vector2 Move => movementInput;
 
-   
-    
-
-   
+  
     private void OnMove(InputValue value)
     {
         Debug.Log("hola");
