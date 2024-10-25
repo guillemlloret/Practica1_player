@@ -61,13 +61,14 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 target = transform.position + direction;
             transform.LookAt(target);
-            Speed = Speed + 0.03f;
+            Speed = Speed + 0.001f;
         }
         else if (direction.magnitude == 0)
         {
             Speed = 0f;
         }
         _lastVelocity = velocity;
+        _lastVelocity.y = 0;
      
         
     }
