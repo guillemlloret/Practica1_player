@@ -14,7 +14,7 @@ public class Wheel : MonoBehaviour
     void Update()
     {
         var motor = _hingeJoint.motor;
-        motor.targetVelocity = Time.time * 10;
+        motor.targetVelocity = Time.time * 1;
         _hingeJoint.motor = motor;
     }
 }
