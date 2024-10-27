@@ -2587,7 +2587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1977912618}
-  offset: {x: -0.02, y: 3.88, z: 0.36}
+  offset: {x: 0.13, y: 3.65, z: -0.43}
   mouseSensitivity: 2
 --- !u!1 &873780459
 GameObject:
