@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
         _input = GetComponent<CharacterMovement>();
         _animator = GetComponent<Animator>();
         _lastVelocity = Vector3.zero;
+        _animator.SetBool("Jump", false);
     }
 
     void Update()
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 horizontalSpeed = new Vector3(_lastVelocity.x, 0, _lastVelocity.z);
         _animator.SetFloat("speed", horizontalSpeed.magnitude);
+        
     }
 
     private void Move()
@@ -43,20 +45,25 @@ public class PlayerMovement : MonoBehaviour
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
         Vector3 velocity = direction * currentSpeed;
 
-
+        
         if (_characterController.isGrounded)
         {
             velocity.y = -0.5f;
             if (ShouldJump())
             {
                 velocity.y = jumpSpeed;
+                _animator.SetBool("Jump", true);
             }
         }
         else
         {
 
             velocity.y = _lastVelocity.y + Physics.gravity.y * Time.deltaTime;
+            _animator.SetBool("Jump", false);
+
+
         }
+       
 
 
         _characterController.Move(velocity * Time.deltaTime);
