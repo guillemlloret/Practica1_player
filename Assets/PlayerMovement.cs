@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Proba sheimi
 public class PlayerMovement : MonoBehaviour
 {
     CharacterController _characterController;
