@@ -8,8 +8,9 @@ public class CharacterMovement : MonoBehaviour
     Vector2 movementInput;
 
     public Vector2 Move => movementInput;
+    private bool _jump;
+    public bool Jump => _jump;
 
-  
     private void OnMove(InputValue value)
     {
         Debug.Log("hola");
@@ -17,5 +18,15 @@ public class CharacterMovement : MonoBehaviour
        
    
     }
-   
+    private void OnJump()
+    {
+        _jump = true;
+    }
+
+    private void LateUpdate()
+    {
+        Debug.Log("false");
+        _jump = false;
+    }
+
 }

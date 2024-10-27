@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _lastVelocity;
 
     Animator _animator;
-
+    public float JumpSpeed = 5;
 
 
     // Start is called before the first frame update
@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         _input = GetComponent<CharacterMovement>();
         _animator = GetComponent<Animator>();
+        _lastVelocity = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -28,9 +29,9 @@ public class PlayerMovement : MonoBehaviour
        
         Move();
 
-        var horizontalSpeed = _lastVelocity;
-     
-        //horizontalSpeed.y = 0;
+        Vector3 horizontalSpeed = _lastVelocity;
+
+       
 
         Debug.Log(horizontalSpeed.magnitude);
        
@@ -38,21 +39,31 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetFloat("speed", horizontalSpeed.magnitude);
        
     }
+    private void Jump(ref Vector3 velocity)
+    {
+        velocity.y = JumpSpeed;
+    }
+    private bool ShouldJump()
+    {
+        return _input.Jump;
+    }
 
-    
 
     private void Move()
     {
 
-        Vector3 direction = new Vector3(_input.Move.x, 0, _input.Move.y);
+        Vector3 direction = new Vector3(_input.Move.x, 0,_input.Move.y);
         //_characterController.SimpleMove(direction * Speed);
 
-        Vector3 velocity = direction * Speed;
+        Vector3 velocity;
         velocity.x = direction.x * Speed;
         velocity.y = _lastVelocity.y;
         velocity.z = direction.z * Speed;
 
-        //velocity.y = GetGravity();
+        velocity.y = GetGravity();
+
+        if (ShouldJump())
+            Jump(ref velocity);
 
         _characterController.Move(velocity * Time.deltaTime);
 
@@ -67,8 +78,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Speed = 0f;
         }
-        _lastVelocity = velocity;
-        _lastVelocity.y = 0;
+        _lastVelocity.y = velocity.y;
+       
      
         
     }
