@@ -15,8 +15,8 @@ public class CharacterMovement : MonoBehaviour
     {
         Debug.Log("hola");
         movementInput = value.Get<Vector2>();
-       
-   
+
+
     }
     private void OnJump()
     {
@@ -25,8 +25,11 @@ public class CharacterMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        Debug.Log("false");
         _jump = false;
+        if (movementInput.magnitude == 0)
+        {
+            movementInput = Vector2.zero;  // Restablecer el input de movimiento si no hay entrada
+        }
     }
 
 }
