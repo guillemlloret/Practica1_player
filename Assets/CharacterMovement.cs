@@ -28,7 +28,7 @@ public class CharacterMovement : MonoBehaviour
         _jump = false;
         if (movementInput.magnitude == 0)
         {
-            movementInput = Vector2.zero;  // Restablecer el input de movimiento si no hay entrada
+            movementInput = Vector2.zero;  
         }
     }
 
